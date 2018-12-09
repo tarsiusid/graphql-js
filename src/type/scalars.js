@@ -18,8 +18,11 @@ import { Kind } from '../language/kinds';
 //
 // n.b. JavaScript's integers are safe between -(2^53 - 1) and 2^53 - 1 because
 // they are internally represented as IEEE 754 doubles.
-const MAX_INT = 2147483647;
-const MIN_INT = -2147483648;
+//
+// But, we also want to support the highest possible integer 
+// to handle edge case like CockroachDB's serial ID
+const MAX_INT = Number.MIN_SAFE_INTEGER;
+const MIN_INT = Number.MAX_SAFE_INTEGER;
 
 function serializeInt(value: mixed): number {
   if (typeof value === 'boolean') {
